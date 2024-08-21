@@ -32,6 +32,11 @@ source /venv/bin/active
 pip install --upgrade -r requirements.txt
 ```
 
+6º - Iniciando a aplicação
+```
+pip interface.py
+```
+
 # Drivers
 
 Windows:
