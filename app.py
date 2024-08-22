@@ -1,8 +1,10 @@
 import customtkinter as ctk
 from tkinter import *
+from tkinter import messagebox
 from tkinter.filedialog import askopenfilename
 import amil
 import bot
+from logs import data_atual
 
 # Configurando aparência padrão do sistema
 ctk.set_appearance_mode('System')
@@ -32,21 +34,57 @@ class App(ctk.CTk):
         
     def system(self):
         
+        def validate_date(date_str: str) -> bool:
+            if date_str == None or date_str == '':
+                messagebox.showinfo(title='Campo vázio', message='Por favor preencha o campo data')
+                return False
+            
+            if date_str.count('/') != 2:
+                messagebox.showinfo(title='Data inválida', message='Por favor verifique se está usando "/" ao inserir a data')
+                return False
+            
+            data = data_atual()
+            if date_str.split('/')[2] != data.split('_')[2]:
+                messagebox.showinfo(title='Ano inválido', message='O ano não está de acordo com o ano atual')
+                return False
+            
+            if int(date_str.split('/')[1]) < 0 or int(date_str.split('/')[1]) > 12:
+                messagebox.showinfo(title='Mês inválido', message='O mês informado não está correto')
+                return False
+            
+            if int(date_str.split('/')[0]) < 0 or int(date_str.split('/')[0]) > 31:
+                messagebox.showinfo(title='Dia inválido', message='O dia informado não está correto')
+                return False
+            
+            return True
+        
+        
+        def validate_path(path):
+            if path == None or path == '':
+                messagebox.showerror(title='Arquivo não selecionado', message='Houve um erro e o arquivo não pode ser selecionado, tente novamente')
+                return False
+            
+            return True
+        
+        
         def submit():
             #Pegando os dados dos Entrys
             operator = operator_combobox.get()
-            print(operator)
             date = date_value.get()
+            
+            print(operator)
             print(date)
             print(self.path)
             
-            if operator == 'Amil':
-                extrato = amil.extrair_dados_amil(self.path)
-                bot.main(extrato)
+            if validate_date(date) and validate_path(self.path):
+                print('teste')
+                if operator == 'Amil':
+                    extrato = amil.extrair_dados_amil(self.path)
+                    bot.main(extrato, date)
             
             
         def get_path():
-            self.path = askopenfilename(title='Selecione uma pasta do computador:')
+            self.path = askopenfilename(title='Selecione o Arquivo:')
             
             
         #Variaveis de texto
