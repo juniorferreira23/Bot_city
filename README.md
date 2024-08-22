@@ -1,6 +1,5 @@
 # Resumo
-Essa aplicação foi feita para extrair informações de um extrato e compara-las no sistema financeiro omie, caso haja a confirmação
-de igualdade da comparação o sistema efetua a confirmação de recebimento na plataforma omie. 
+Este sistema automatiza o processo de conferência de dados, comparando informações extraídas com os registros atualizados na plataforma Omie. Ao confirmar a correspondência entre os dados, o sistema registra automaticamente o recebimento das contas a receber na plataforma. A interface gráfica intuitiva permite ao usuário definir a data de recebimento e o local do arquivo de origem, otimizando a eficiência e a precisão do processo. 
 
 
 # Instalação
@@ -26,6 +25,15 @@ pip install -r requirements.txt
 ```
 py app.py
 ```
+
+# Desenvolvimento
+Caso deseje fazer uso da aplicação, basta converter as informações de contrato e parcela para uma lista de objetos e passar como primeiro paramentro na chamada da função bot.main() no arquivo app.py na linha 83.
+
+Formato do objeto:
+dado = {
+          'contrato': contrato,
+          'parcela': parcela
+        }
 
 
 # Drivers
