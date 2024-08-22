@@ -179,7 +179,7 @@ def main(extrato: list[object], data_recebimento: str):
     # You MUST invoke the stop_browser to avoid
     # leaving instances of the webdriver open
     log(f'INFO: Fim da execução (Execução concluída com sucesso)')
-    # bot.stop_browser()
+    bot.stop_browser()
 
 if __name__ == '__main__':
     main()
